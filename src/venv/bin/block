@@ -1,0 +1,10 @@
+#!/Users/voxelot/github/storj/counterpart/counterparty-migration/src/venv/bin/python3
+# EASY-INSTALL-ENTRY-SCRIPT: 'pycoin==0.62','console_scripts','block'
+__requires__ = 'pycoin==0.62'
+import sys
+from pkg_resources import load_entry_point
+
+if __name__ == '__main__':
+    sys.exit(
+        load_entry_point('pycoin==0.62', 'console_scripts', 'block')()
+    )

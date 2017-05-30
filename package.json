@@ -1,0 +1,19 @@
+{
+  "name": "counterparty-migration",
+  "version": "1.0.0",
+  "description": "simple program to watch counterparty txs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nginnever/counterparty-migration.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nginnever/counterparty-migration/issues"
+  },
+  "homepage": "https://github.com/nginnever/counterparty-migration#readme"
+}
