@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 
 """
   Copyright (c) 2007 Jan-Klaas Kollhof
@@ -19,8 +20,22 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 """
 
-from jsonrpc.json import loads, dumps, JSONEncodeException, JSONDecodeException
-from jsonrpc.proxy import ServiceProxy, JSONRPCException
-from jsonrpc.serviceHandler import ServiceMethod, ServiceHandler, ServiceMethodNotFound, ServiceException
-from jsonrpc.cgiwrapper import handleCGI
-from jsonrpc.modpywrapper import handler
+
+import unittest
+import os
+
+
+from jsonrpc import _tests
+
+if __name__ == "__main__":
+
+    testPath = os.path.split(_tests.__file__)[0]
+    testModules = []
+    for fileName in os.listdir(testPath):
+        if fileName[-3:] == '.py' and fileName != '__init__.py':
+            testModules.append('jsonrpc._tests.%s' % fileName[:-3])
+
+    suite = unittest.TestLoader().loadTestsFromNames(testModules)
+
+    unittest.TextTestRunner(verbosity=5).run(suite)
+    

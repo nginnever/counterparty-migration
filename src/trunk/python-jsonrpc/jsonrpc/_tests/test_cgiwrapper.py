@@ -18,9 +18,38 @@
   along with this software; if not, write to the Free Software
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 """
+import unittest
+import jsonrpc
+from types import *
 
-from jsonrpc.json import loads, dumps, JSONEncodeException, JSONDecodeException
-from jsonrpc.proxy import ServiceProxy, JSONRPCException
-from jsonrpc.serviceHandler import ServiceMethod, ServiceHandler, ServiceMethodNotFound, ServiceException
-from jsonrpc.cgiwrapper import handleCGI
-from jsonrpc.modpywrapper import handler
+class Service(object):
+    @jsonrpc.ServiceMethod
+    def echo(self, arg):
+        return arg
+
+
+class  TestCGIWrapper(unittest.TestCase):
+
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        pass
+
+    def test_runCGIHandler(self):
+        from StringIO import StringIO
+
+        json=u'{"method":"echo","params":["foobar"], "id":""}'
+        fin=StringIO(json)
+        fout=StringIO()
+        
+        env = {"CONTENT_LENGTH":len(json)}
+
+        jsonrpc.handleCGI(service=Service(), fin=fin, fout=fout, env=env)
+
+        data = StringIO(fout.getvalue())
+        data.readline()
+        data.readline()
+        data = data.read()
+        self.assertEquals(jsonrpc.loads(data), {"result":"foobar", "error":None, "id":""})
+
